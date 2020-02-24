@@ -46,7 +46,8 @@ class AccountFecImportWizard(models.TransientModel):
         #filecontent = self.fec_file.decode('base64')
         filecontent = base64.b64decode(self.fec_file)
         reader_file = csv.reader(filecontent, delimiter=str(self.delimiter))
-        for index, row in enumerate(reader_file):
+        for index in reader_file:
+            row = reader_file[index]
             if not index:
                 header = row
             else:
