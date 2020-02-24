@@ -40,7 +40,6 @@ class AccountFecImportWizard(models.TransientModel):
     import_reconciliation = fields.Boolean(default=True)
     delimiter = fields.Char(required=True, default='|')
 
-    @api.multi
     def import_file(self):
         self.ensure_one()
         data = []
@@ -54,7 +53,7 @@ class AccountFecImportWizard(models.TransientModel):
         self._filter_data(data)
         self._import_data(data)
 
-    @api.multi
+
     def _filter_data(self, data):
         self.ensure_one()
         if self.import_reconciliation:
