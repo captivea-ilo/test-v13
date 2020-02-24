@@ -20,10 +20,13 @@
 ##############################################################################
 
 import csv
-import cStringIO
+# import cStringIO
 
-from openerp import api, fields, models, _
-from openerp.exceptions import Warning
+from io import BytesIO  # for handling byte strings
+from io import StringIO  # for handling unicode strings
+
+from odoo import api, fields, models, _
+from odoo.exceptions import Warning
 
 
 class AccountFecImportWizard(models.TransientModel):
@@ -42,7 +45,7 @@ class AccountFecImportWizard(models.TransientModel):
         self.ensure_one()
         data = []
         filecontent = self.fec_file.decode('base64')
-        csvfile = cStringIO.StringIO(filecontent)
+        csvfile = BytesIO(filecontent)
         for index, row in enumerate(csv.reader(csvfile, delimiter=str(self.delimiter))):
             if not index:
                 header = row
