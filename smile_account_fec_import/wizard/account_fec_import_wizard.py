@@ -24,7 +24,7 @@ import csv
 
 from io import BytesIO  # for handling byte strings
 from io import StringIO  # for handling unicode strings
-
+import base64
 from odoo import api, fields, models, _
 from odoo.exceptions import Warning
 
@@ -43,7 +43,8 @@ class AccountFecImportWizard(models.TransientModel):
     def import_file(self):
         self.ensure_one()
         data = []
-        filecontent = self.fec_file.decode('base64')
+        #filecontent = self.fec_file.decode('base64')
+        filecontent = base64.b64decode(self.fec_file)
         csvfile = BytesIO(filecontent)
         for index, row in enumerate(csv.reader(csvfile, delimiter=str(self.delimiter))):
             if not index:
