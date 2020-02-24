@@ -19,4 +19,4 @@
 #
 ##############################################################################
 
-import account_fec_import_wizard
+from . import account_fec_import_wizard
